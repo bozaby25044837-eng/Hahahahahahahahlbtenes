@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login — NEXUS HOST</title>
+  <link rel="icon" href="../static/img/logo.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../static/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-in">
+    <div class="nav-left">
+      <div class="nav-actions"><a class="btn btn-sm btn-ghost" href="../index.html">🏠 Home</a></div>
+    </div>
+    <a class="brand" href="../index.html">
+      <img src="../static/img/logo.svg" alt="NEXUS HOST" width="34" height="34" onerror="this.style.display='none'">
+      <span class="brand-text">NEXUS HOST<small>HOSTING YOUR IDEAS</small></span>
+    </a>
+  </div>
+</nav>
+
+<main>
+<section class="container page" style="max-width:460px">
+  <div class="card" style="margin-top:40px;text-align:center">
+    <img src="../static/img/logo.svg" width="58" alt="NEXUS HOST">
+    <h1 style="font-size:26px;margin-top:10px">NEXUS <span class="blue">HOST</span></h1>
+    <p class="muted" style="font-size:13px;margin:8px 0 20px">Sign in with the key and password you received from the bot</p>
+
+    <form id="loginForm" style="text-align:left">
+      <div class="field">
+        <label>Username / Key</label>
+        <input id="username" name="username" autocomplete="username" required>
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input id="password" type="password" name="password" autocomplete="current-password" required>
+      </div>
+      <button class="btn btn-primary btn-block" type="submit">🔑 Sign in</button>
+    </form>
+
+    <p class="muted" style="font-size:12.5px;margin-top:16px">
+      Don't have an account? <a href="https://t.me/YOUR_BOT_USERNAME" target="_blank">🤖 Get Key from Bot</a>
+    </p>
+  </div>
+</section>
+</main>
+
+<footer>All rights reserved ® NEXUS HOST</footer>
+
+<script src="../static/js/app.js"></script>
+<script>
+// ✅ نظام الدخول
+document.getElementById('loginForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+    
+    if (!username || !password) {
+        Swal.fire({
+            icon: 'warning',
+            title: '⚠️ تنبيه',
+            text: 'يرجى إدخال اسم المستخدم وكلمة المرور',
+            background: '#08090c',
+            color: '#ffffff'
+        });
+        return;
+    }
+    
+    const btn = this.querySelector('button[type="submit"]');
+    const originalText = btn.textContent;
+    btn.textContent = '⏳ جاري التحقق...';
+    btn.disabled = true;
+    
+    try {
+        const response = await fetch('/api/verify', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ username, password })
+        });
+        
+        const data = await response.json();
+        
+        if (data.ok) {
+            localStorage.setItem('nexus_user', username);
+            localStorage.setItem('nexus_pass', password);
+            localStorage.setItem('nexus_logged', 'true');
+            
+            await Swal.fire({
+                icon: 'success',
+                title: '✅ تم الدخول بنجاح',
+                text: 'مرحباً بك في NEXUS HOST',
+                timer: 1500,
+                showConfirmButton: false,
+                background: '#08090c',
+                color: '#ffffff'
+            });
+            
+            window.location.href = '../dashboard/index.html';
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: '❌ خطأ',
+                text: data.error || 'اسم المستخدم أو كلمة المرور غير صحيحة!',
+                background: '#08090c',
+                color: '#ffffff'
+            });
+        }
+    } catch(e) {
+        Swal.fire({
+            icon: 'error',
+            title: '❌ خطأ',
+            text: 'تعذر الاتصال بالخادم!',
+            background: '#08090c',
+            color: '#ffffff'
+        });
+    } finally {
+        btn.textContent = originalText;
+        btn.disabled = false;
+    }
+});
+
+// ✅ التحقق من الجلسة
+document.addEventListener('DOMContentLoaded', function() {
+    const logged = localStorage.getItem('nexus_logged');
+    const user = localStorage.getItem('nexus_user');
+    
+    if (logged === 'true' && user) {
+        window.location.href = '../dashboard/index.html';
+    }
+});
+
+// ✅ تفعيل الأيقونات
+if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+}
+</script>
+
+</body>
+</html>
