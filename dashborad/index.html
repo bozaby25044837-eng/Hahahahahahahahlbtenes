@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard — NEXUS HOST</title>
+  <link rel="icon" href="../static/img/logo.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../static/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-in">
+    <div class="nav-left">
+      <div class="nav-actions">
+        <button class="btn btn-sm btn-ghost" onclick="logout()">🚪 Logout</button>
+      </div>
+    </div>
+    <a class="brand" href="../index.html">
+      <img src="../static/img/logo.svg" alt="NEXUS HOST" width="34" height="34" onerror="this.style.display='none'">
+      <span class="brand-text">NEXUS HOST<small>DASHBOARD</small></span>
+    </a>
+  </div>
+</nav>
+
+<main>
+<section class="container page">
+  <h1 class="section-title">👋 Welcome, <span id="usernameDisplay" class="blue">User</span>!</h1>
+  
+  <div class="grid g3">
+    <div class="card">
+      <h3>📊 My Servers</h3>
+      <p style="font-size:42px;font-weight:800;margin:10px 0;">0</p>
+      <a href="#" class="btn btn-sm btn-ghost">View all</a>
+    </div>
+    <div class="card">
+      <h3>⚡ Running</h3>
+      <p style="font-size:42px;font-weight:800;margin:10px 0;color:var(--green);">0</p>
+      <span class="badge on">● Online</span>
+    </div>
+    <div class="card">
+      <h3>💾 Storage</h3>
+      <p style="font-size:42px;font-weight:800;margin:10px 0;">0 MB</p>
+      <span class="badge">● Used</span>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px;text-align:center;">
+    <h3>🚀 Create New Server</h3>
+    <p class="muted" style="margin:10px 0;">Choose your language and deploy instantly</p>
+    <a href="#" class="btn btn-primary">➕ New Server</a>
+  </div>
+</section>
+</main>
+
+<footer>All rights reserved ® NEXUS HOST</footer>
+
+<script src="../static/js/app.js"></script>
+<script src="../static/js/ai-chat.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const logged = localStorage.getItem('nexus_logged');
+    const user = localStorage.getItem('nexus_user');
+    
+    if (logged !== 'true' || !user) {
+        window.location.href = '../login/index.html';
+        return;
+    }
+    
+    document.getElementById('usernameDisplay').textContent = user;
+});
+
+function logout() {
+    Swal.fire({
+        title: 'تسجيل الخروج',
+        text: 'هل أنت متأكد من رغبتك في تسجيل الخروج؟',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'نعم، تسجيل خروج',
+        cancelButtonText: 'إلغاء',
+        background: '#08090c',
+        color: '#ffffff',
+        confirmButtonColor: '#ef4444'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            localStorage.removeItem('nexus_user');
+            localStorage.removeItem('nexus_pass');
+            localStorage.removeItem('nexus_logged');
+            
+            const widget = document.getElementById('ai-widget');
+            if (widget) {
+                widget.dataset.logged = '0';
+                widget.dataset.username = '';
+            }
+            
+            window.location.href = '../login/index.html';
+        }
+    });
+}
+
+nxIcons();
+</script>
+
+</body>
+</html>
