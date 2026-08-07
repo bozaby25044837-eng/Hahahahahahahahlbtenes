@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NEXUS HOST — Professional server hosting</title>
+  <link rel="icon" href="static/img/logo.svg" type="image/svg+xml">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-in">
+    <div class="nav-left">
+      <div class="nav-actions">
+        <a class="btn btn-sm btn-ghost" href="https://t.me/YOUR_BOT_USERNAME" target="_blank">🤖 Get Key</a>
+        <a class="btn btn-sm btn-primary" href="login/index.html">Sign in</a>
+      </div>
+    </div>
+    <a class="brand" href="index.html">
+      <img src="static/img/logo.svg" alt="NEXUS HOST" width="34" height="34" onerror="this.style.display='none'">
+      <span class="brand-text">NEXUS HOST<small>HOSTING YOUR IDEAS</small></span>
+    </a>
+  </div>
+</nav>
+
+<main>
+<section class="hero container">
+  <span class="pill">🤖 NEXUS Hosting</span>
+  <h1>Host your projects on <span class="blue">NEXUS HOST</span><br>with speed and stability</h1>
+  <p>
+    <span class="blue">NEXUS</span> hosting for Python, Node.js, PHP and HTML servers.
+    To get an <span class="blue">account</span>, send <code>/newkey</code> to the bot on Telegram.
+  </p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="login/index.html">🔑 Sign in</a>
+    <a class="btn" href="https://t.me/YOUR_BOT_USERNAME" target="_blank">🤖 Get Key on Telegram</a>
+  </div>
+</section>
+
+<section class="container page">
+  <div class="grid g4">
+    <div class="stat"><div class="v">2</div><div class="l">USERS</div></div>
+    <div class="stat"><div class="v">8</div><div class="l">SERVERS CREATED</div></div>
+    <div class="stat"><div class="v">3</div><div class="l">RUNNING NOW</div></div>
+    <div class="stat"><div class="v">99.9%</div><div class="l">UPTIME</div></div>
+  </div>
+
+  <h2 class="section-title" style="margin-top:34px">Why <span class="blue">NEXUS HOST</span>?</h2>
+  <div class="grid g3">
+    <div class="feature"><div class="ico"><i data-lucide="zap"></i></div><div><h4>Instant deployment</h4><p>Create a server, pick its language and start it within seconds from one dashboard.</p></div></div>
+    <div class="feature"><div class="ico"><i data-lucide="folder"></i></div><div><h4>Full file manager</h4><p>Upload, edit and delete your files freely.</p></div></div>
+    <div class="feature"><div class="ico"><i data-lucide="bar-chart-3"></i></div><div><h4>Live statistics</h4><p>Monitor CPU, memory, storage and network for every server in real time.</p></div></div>
+    <div class="feature"><div class="ico"><i data-lucide="shield"></i></div><div><h4>Isolation &amp; security</h4><p>Every user runs in a fully isolated environment.</p></div></div>
+    <div class="feature"><div class="ico"><i data-lucide="square-terminal"></i></div><div><h4>Live logs</h4><p>Follow your project logs moment by moment.</p></div></div>
+    <div class="feature"><div class="ico"><i data-lucide="message-circle"></i></div><div><h4>Direct support</h4><p>Support around the clock.</p></div></div>
+  </div>
+
+  <h2 class="section-title" style="margin-top:34px">Hardware status</h2>
+  <div class="metrics">
+    <div class="metric">
+      <div class="metric-head">
+        <span class="metric-title">CPU Usage</span>
+        <span class="metric-ico blue"><i data-lucide="cpu"></i></span>
+      </div>
+      <div class="metric-value" id="hs-cpu-v">0%</div>
+      <div class="metric-sub">Processing power</div>
+      <div class="scard-bar" style="margin-top:22px;height:3px;background:#0a0f1a"><i id="hs-cpu-bar" style="background:var(--blue);width:0%"></i></div>
+    </div>
+    <div class="metric">
+      <div class="metric-head">
+        <span class="metric-title">Memory Usage</span>
+        <span class="metric-ico purple"><i data-lucide="memory-stick"></i></span>
+      </div>
+      <div class="metric-value" id="hs-mem-v">0%</div>
+      <div class="metric-sub" id="hs-mem-sub">0 MB of 0 MB used</div>
+      <svg class="spark" viewBox="0 0 200 40" preserveAspectRatio="none" style="height:44px">
+        <polyline id="hs-mem-spark" fill="none" stroke="#a855f7" stroke-width="2" points="0,32 24,32 32,10 200,10"/>
+      </svg>
+    </div>
+    <div class="metric">
+      <div class="metric-head">
+        <span class="metric-title">Network I/O</span>
+        <span class="metric-ico green"><i data-lucide="arrow-up-down"></i></span>
+      </div>
+      <div class="metric-value" id="hs-net-v">0.00 MB/s</div>
+      <div class="metric-sub">Data transfer</div>
+      <div class="net-row">
+        <span class="net-in">IN <b id="hs-net-in">0.00</b></span>
+        <span class="net-out">OUT <b id="hs-net-out">0.00</b></span>
+      </div>
+    </div>
+    <div class="metric">
+      <div class="metric-head">
+        <span class="metric-title">Disk Usage</span>
+        <span class="metric-ico orange"><i data-lucide="hard-drive"></i></span>
+      </div>
+      <div class="metric-value" id="hs-disk-v">0%</div>
+      <div class="metric-sub" id="hs-disk-sub">0 MB of 0 MB used</div>
+      <div class="gauge">
+        <svg viewBox="0 0 110 110">
+          <circle class="g-bg" cx="55" cy="55" r="46"/>
+          <circle class="g-fg" id="hs-disk-gauge" cx="55" cy="55" r="46" stroke-dasharray="289" stroke-dashoffset="289"/>
+        </svg>
+        <span id="hs-disk-gv">0%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:22px;text-align:center">
+    <h3 style="font-size:20px">Ready to start?</h3>
+    <p class="muted" style="margin:10px 0 16px">Send /newkey to the bot, get your credentials and start hosting.</p>
+    <a class="btn btn-primary" href="https://t.me/YOUR_BOT_USERNAME" target="_blank">🤖 Get Key Now</a>
+  </div>
+</section>
+</main>
+
+<footer>All rights reserved ® NEXUS HOST</footer>
+
+<div id="ai-widget"
+     data-logged="0"
+     data-username=""
+     data-tg="https://t.me/YOUR_BOT_USERNAME">
+  <div id="ai-tip" class="ai-tip">يمكنني أن أدلك على أي شيء 👋</div>
+  <button id="ai-fab" class="ai-fab" type="button" aria-label="AI Assistant" onclick="aiToggle()">
+    <i data-lucide="message-circle"></i>
+  </button>
+
+  <div id="ai-panel" class="ai-panel" dir="rtl" role="dialog" aria-label="AI assistant">
+    <div class="ai-head">
+      <div class="ai-head-l">
+        <div class="ai-ava"><i data-lucide="bot"></i></div>
+        <div>
+          <div class="ai-title" id="ai-title-text">مساعد NEXUS HOST</div>
+          <div class="ai-sub"><span class="ai-dot"></span> <span id="ai-sub-text">متصل الآن</span></div>
+        </div>
+      </div>
+      <div class="ai-head-r">
+        <button id="ai-lang" class="ai-lang" type="button" onclick="aiToggleLang()" title="Translate">EN</button>
+        <button class="ai-x" type="button" onclick="aiToggle()" aria-label="Close">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="ai-body" class="ai-body" aria-live="polite"></div>
+    <div id="ai-suggest" class="ai-suggest"></div>
+
+    <form class="ai-form" onsubmit="aiSend(event)">
+      <input id="ai-input" type="text" placeholder="اكتب رسالتك هنا..." autocomplete="off" maxlength="2000">
+      <button type="submit" class="ai-send" aria-label="Send message">
+        <i data-lucide="send"></i>
+      </button>
+    </form>
+  </div>
+</div>
+
+<script src="static/js/app.js"></script>
+<script src="static/js/ai-chat.js"></script>
+<script>
+async function sbDeleteServer(id, name){
+  if(!await confirmDelete(`Server <b>${name}</b> will be stopped and all of its files permanently deleted.`)) return;
+  await api(`/servers/${id}/delete`);
+  location.href="dashboard/index.html";
+}
+nxIcons();
+</script>
+
+<script>
+const MEM_HISTORY = [];
+function updateSpark(){
+  if(MEM_HISTORY.length < 2) return;
+  const w = 200, h = 40, max = 100;
+  const step = w / Math.max(MEM_HISTORY.length - 1, 1);
+  const pts = MEM_HISTORY.map((v,i)=>`${(i*step).toFixed(1)},${(h - (v/max)*(h-4) - 2).toFixed(1)}`).join(' ');
+  document.getElementById('hs-mem-spark').setAttribute('points', pts);
+}
+async function refreshHost(){
+  try{
+    const s = await (await fetch('/api/host/stats')).json();
+    document.getElementById('hs-cpu-v').textContent = (s.cpu||0)+'%';
+    document.getElementById('hs-cpu-bar').style.width = Math.max(s.cpu||0, 1)+'%';
+    document.getElementById('hs-mem-v').textContent = (s.memory||0)+'%';
+    document.getElementById('hs-mem-sub').textContent = (s.memory_used||0)+' MB of '+(s.memory_total_mb||s.memory_total*1024||0)+' MB used';
+    MEM_HISTORY.push(Number(s.memory)||0);
+    if(MEM_HISTORY.length > 40) MEM_HISTORY.shift();
+    updateSpark();
+    const netTotal = ((Number(s.net_in)||0) + (Number(s.net_out)||0)).toFixed(2);
+    document.getElementById('hs-net-v').textContent = netTotal + ' MB/s';
+    document.getElementById('hs-net-in').textContent = (Number(s.net_in)||0).toFixed(2);
+    document.getElementById('hs-net-out').textContent = (Number(s.net_out)||0).toFixed(2);
+    const dp = Number(s.disk)||0;
+    document.getElementById('hs-disk-v').textContent = dp+'%';
+    document.getElementById('hs-disk-gv').textContent = dp+'%';
+    document.getElementById('hs-disk-sub').textContent = (s.disk_used_mb||Math.round((s.disk_used||0)*1024))+' MB of '+(s.disk_total_mb||Math.round((s.disk_total||0)*1024))+' MB used';
+    const circ = 289;
+    document.getElementById('hs-disk-gauge').style.strokeDashoffset = (circ - (circ * dp/100)).toFixed(1);
+  }catch(e){}
+}
+refreshHost(); setInterval(refreshHost, 5000);
+</script>
+
+</body>
+</html>
